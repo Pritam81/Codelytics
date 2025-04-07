@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       // Navigate to the next screen after the splash screen
-      Get.offNamed('/form'); // Change this to your desired route
+      Get.offNamed('/loginscreen'); // Change this to your desired route
     });
   }
 

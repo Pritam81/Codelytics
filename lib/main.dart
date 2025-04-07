@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:newapp/screens/formPage.dart';
+
 import 'package:get/get.dart';
+import 'package:newapp/screens/login_screen.dart';
 import 'package:newapp/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -17,8 +17,7 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/form': (context) => const FormPage(),
-         
+          '/loginscreen': (context) => loginscreen(),
       },
     );
   }
