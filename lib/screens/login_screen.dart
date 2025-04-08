@@ -1,7 +1,9 @@
-import 'dart:math';
+// ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:newapp/common/colors.dart';
+import 'package:newapp/controller/GetxController/visibilitycontroller.dart';
+import 'package:get/get.dart';
 
 class loginscreen extends StatefulWidget {
   const loginscreen({super.key});
@@ -11,9 +13,11 @@ class loginscreen extends StatefulWidget {
 }
 
 class _loginscreenState extends State<loginscreen> {
-  var hide = true;
+  final VisibilityController controller = Get.put(VisibilityController());
+
   @override
   Widget build(BuildContext context) {
+    print("App started from login_screen.dart");
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
@@ -73,30 +77,31 @@ class _loginscreenState extends State<loginscreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 25),
-                      child: TextFormField(
-                        obscureText: hide,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          labelStyle: const TextStyle(color: Colors.black54),
-                          prefixIcon: const Icon(
-                            Icons.lock,
-                            color: Colors.black54,
-                          ),
-
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              hide ? Icons.visibility : Icons.visibility_off,
+                      child: Obx(
+                        () => TextFormField(
+                          obscureText: controller.isPasswordVisible.value,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: const TextStyle(color: Colors.black54),
+                            prefixIcon: const Icon(
+                              Icons.lock,
                               color: Colors.black54,
                             ),
-                            onPressed: () {
-                              setState(() {
-                                hide = !hide;
-                              });
-                            },
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(color: Colors.grey),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                controller.isPasswordVisible.value
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Colors.black54,
+                              ),
+                              onPressed: () {
+                                controller.togglePasswordVisibility();
+                              },
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(color: Colors.grey),
+                            ),
                           ),
                         ),
                       ),

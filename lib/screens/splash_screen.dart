@@ -20,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("App started from splash_screen.dart");
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
