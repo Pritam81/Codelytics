@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,9 +13,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      // Navigate to the next screen after the splash screen
-      Get.offNamed('/loginscreen'); // Change this to your desired route
+
+   Future.delayed(const Duration(seconds: 3), () {
+      loginstatus(); // Change this to your desired route
     });
   }
 
@@ -37,5 +38,15 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  void loginstatus() async {
+    var prefs = await SharedPreferences.getInstance();
+    var islogin = prefs.getBool('islogin');
+    if (islogin != null && islogin == true) {
+      navigator?.pushReplacementNamed('/dashboard');
+    } else {
+      navigator?.pushReplacementNamed('/loginscreen');
+    }
   }
 }

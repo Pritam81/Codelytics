@@ -90,7 +90,15 @@ class _loginscreenState extends State<loginscreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100),
                       ),
-                      onPressed: () async {},
+                      onPressed: () async {
+                        var prefs = await SharedPreferences.getInstance();
+                        prefs.setString(
+                          'username',
+                          usernameController.text.trim(),
+                        );
+                        prefs.setBool("islogin", true);
+                        navigator?.pushReplacementNamed('/dashboard');
+                      },
                       backgroundColor: const Color.fromARGB(255, 255, 191, 0),
                       child: const Icon(
                         Icons.arrow_forward,

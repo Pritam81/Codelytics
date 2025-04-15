@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:newapp/screens/dashboard.dart';
 import 'package:newapp/screens/login_screen.dart';
 import 'package:newapp/screens/splash_screen.dart';
 
@@ -17,7 +18,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,
-      routes: {'/loginscreen': (context) => loginscreen()},
+      routes: {
+        '/loginscreen': (context) => loginscreen(),
+        '/dashboard': (context) => Dashboard(),
+      
+      
+      },
     );
   }
 }
