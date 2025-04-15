@@ -1,9 +1,8 @@
-// ignore_for_file: camel_case_types
-
 import 'package:flutter/material.dart';
-import 'package:newapp/common/colors.dart';
 import 'package:newapp/controller/GetxController/visibilitycontroller.dart';
 import 'package:get/get.dart';
+import 'package:newapp/controller/text_editing_controller/textcontroller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class loginscreen extends StatefulWidget {
   const loginscreen({super.key});
@@ -13,7 +12,14 @@ class loginscreen extends StatefulWidget {
 }
 
 class _loginscreenState extends State<loginscreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsFlutterBinding.ensureInitialized();
+  }
+
   final VisibilityController controller = Get.put(VisibilityController());
+  final TextEditingController usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,13 @@ class _loginscreenState extends State<loginscreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(
+        255,
+        255,
+        226,
+        168,
+      ), // GitHub dark mode background
+
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -31,138 +43,81 @@ class _loginscreenState extends State<loginscreen> {
             Align(
               alignment: Alignment.bottomCenter,
 
-              child: Image.asset('assets/images/app_logo.png', width: 150),
+              child: Image.asset(
+                'assets/images/leet_code_logo.png',
+                width: 250,
+              ),
             ),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Container(
-                height: height * 0.46,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 10,
-                      offset: const Offset(0, 5),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 25.0,
+                        left: 25,
+                        right: 25,
+                        bottom: 10,
+                      ),
+                      child: TextFormField(
+                        controller: usernameController,
+                        decoration: InputDecoration(
+                          labelText: 'Username',
+                          labelStyle: const TextStyle(color: Colors.black54),
+                          prefixIcon: const Icon(
+                            Icons.person,
+                            color: Colors.black54,
+                          ),
+                          enabled: true,
+
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                      ),
                     ),
+                    Text(
+                      'Enter your LeetCode handle!',
+                      style: TextStyle(color: Colors.black54, fontSize: 13),
+                    ),
+
+                    SizedBox(height: height * 0.01),
+
+                    FloatingActionButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      onPressed: () async {},
+                      backgroundColor: const Color.fromARGB(255, 255, 191, 0),
+                      child: const Icon(
+                        Icons.arrow_forward,
+                        color: Colors.black54,
+                      ),
+                    ),
+
+                    SizedBox(height: height * 0.02),
+
+                    const Text(
+                      'OR',
+                      style: TextStyle(color: Colors.black54, fontSize: 13),
+                    ),
+                    SizedBox(height: height * 0.02),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Sign in as guest'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 255, 191, 0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: height * 0.02),
+                    Image.asset('assets/images/app_logo.png', width: 120),
                   ],
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 25.0,
-                          left: 25,
-                          right: 25,
-                          bottom: 10,
-                        ),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Username',
-                            labelStyle: const TextStyle(color: Colors.black54),
-                            prefixIcon: const Icon(
-                              Icons.person,
-                              color: Colors.black54,
-                            ),
-                            enabled: true,
-
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 25, right: 25),
-                        child: Obx(
-                          () => TextFormField(
-                            obscureText: controller.isPasswordVisible.value,
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              labelStyle: const TextStyle(
-                                color: Colors.black54,
-                              ),
-                              prefixIcon: const Icon(
-                                Icons.lock,
-                                color: Colors.black54,
-                              ),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  controller.isPasswordVisible.value
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: Colors.black54,
-                                ),
-                                onPressed: () {
-                                  controller.togglePasswordVisibility();
-                                },
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: height * 0.03),
-
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: primary,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 109,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        child: const Text('Login'),
-                      ),
-                      SizedBox(height: height * 0.009),
-                      Text(
-                        "or you can sign in with",
-                        style: TextStyle(color: Colors.black54, fontSize: 12),
-                      ),
-
-                      SizedBox(height: height * 0.02),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/google_logo.png',
-                              width: 32,
-                            ),
-                            SizedBox(width: width * 0.09),
-                            Image.asset(
-                              'assets/images/github_logo.png',
-                              width: 35,
-                            ),
-                            SizedBox(width: width * 0.09),
-                            Image.asset(
-                              'assets/images/facebook_logo.png',
-                              width: 32,
-                            ),
-                            SizedBox(width: width * 0.09),
-                            Image.asset(
-                              'assets/images/linkedin_logo.png',
-                              width: 40,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
               ),
             ),
