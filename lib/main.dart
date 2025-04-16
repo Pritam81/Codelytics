@@ -21,8 +21,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/loginscreen': (context) => loginscreen(),
         '/dashboard': (context) => Dashboard(),
-      
-      
       },
     );
   }
