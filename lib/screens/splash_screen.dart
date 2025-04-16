@@ -13,9 +13,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
-   Future.delayed(const Duration(seconds: 3), () {
-      loginstatus(); // Change this to your desired route
+    Future.delayed(const Duration(seconds: 3), () {
+      navigator?.pushReplacementNamed('/loginscreen');
+      //loginstatus(); // Change this to your desired route
     });
   }
 
